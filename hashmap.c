@@ -47,8 +47,12 @@ void insertMap(HashMap * map, char * key, void * value) {
     while (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL){ //sondeo lineal :)
         posicion = (posicion + 1) % map->capacity ;
     }
-
     
+    Pair * parcito = createPair(strdup(key), value) ;
+    map->buckets[posicion] = parcito ;
+    map->size++ ;
+    map->current = posicion ;
+
 }
 
 void enlarge(HashMap * map) {
