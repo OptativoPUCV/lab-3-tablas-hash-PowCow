@@ -51,8 +51,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     Pair * parcito = createPair(strdup(key), value) ;
     map->buckets[posicion] = parcito ;
     map->size++ ;
-    map->current = posicion ;-
--
+    map->current = posicion ;
 }
 
 void enlarge(HashMap * map) {
