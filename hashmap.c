@@ -25,7 +25,7 @@ Pair * createPair( char * key,  void * value) {
 
 long hash( char * key, long capacity) {
     unsigned long hash = 0;
-     char * ptr;
+    char * ptr;
     for (ptr = key; *ptr != '\0'; ptr++) {
         hash += hash*32 + tolower(*ptr);
     }
@@ -51,8 +51,8 @@ void insertMap(HashMap * map, char * key, void * value) {
     Pair * parcito = createPair(strdup(key), value) ;
     map->buckets[posicion] = parcito ;
     map->size++ ;
-    map->current = posicion ;
-
+    map->current = posicion ;-
+-
 }
 
 void enlarge(HashMap * map) {

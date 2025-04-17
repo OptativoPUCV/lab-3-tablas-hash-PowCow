@@ -16,3 +16,13 @@ Wed, Apr 16, 2025  9:31:23 AM:
  tests:  5|4
 total_score: 30/70
 a728469
+Wed, Apr 16, 2025  8:06:47 PM: 
+ hashmap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+hashmap.c: In function 'insertMap':
+hashmap.c:56:1: error: expected expression before '}' token
+ }
+ ^
+b14ed7d
