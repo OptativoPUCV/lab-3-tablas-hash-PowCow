@@ -71,15 +71,14 @@ HashMap * createMap(long capacity) { //LISTO :D
     return map ;
 }
 
-void eraseMap(HashMap * map,  char * key) {    
-    if (map == NULL || key == NULL) return ;
+void eraseMap(HashMap * map,  char * key) { //LISTO :d
+    if (map == NULL || key == NULL) return ; //si todo es nulo, nada se hace :p
     Pair* par = searchMap(map, key) ;
 
     if (par == NULL) return ;//no se encontro la clave
     par->key = NULL ;
     map->size-- ;
     map->current = -1 ;
-
 }
 
 Pair * searchMap(HashMap * map,  char * key) { // LISTO :D
@@ -104,11 +103,25 @@ Pair * searchMap(HashMap * map,  char * key) { // LISTO :D
 }
 
 Pair * firstMap(HashMap * map) {
+    if (map == NULL || map->buckets == NULL) return NULL ;
 
-    return NULL;
+    for (long k = 0 ; k < map->capacity ; k++){
+        if (map->buckets[k] != NULL && map->buckets[k]->key != NULL){
+            map->current = k ;
+            return map->buckets[k] ;}
+    }
+    map->current = -1 ;
+    return NULL ;
 }
 
 Pair * nextMap(HashMap * map) {
+    if (map == NULL || map->buckets == NULL || map->current == -1) return NULL ;
 
+    for (long k = map->current + 1 ; k < map->capacity ; k++){
+        if (map->buckets[k] != NULL && map->buckets[k]->key != NULL){
+            map->current = k ;
+            return map->buckets[k] ;}
+    }
+    map->current = -1 ;
     return NULL;
 }
