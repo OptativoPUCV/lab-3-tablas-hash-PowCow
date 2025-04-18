@@ -25,7 +25,7 @@ Pair * createPair( char * key,  void * value) {
 
 long hash( char * key, long capacity) {
     unsigned long hash = 0;
-    char * ptr;
+     char * ptr;
     for (ptr = key; *ptr != '\0'; ptr++) {
         hash += hash*32 + tolower(*ptr);
     }
@@ -77,22 +77,8 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
-    long posicion = hash(key, map->capacity) ; //buscamos la posicion de key
-    long pos_aux = posicion ;
-    do{
-        Pair* par = map->buckets[posicion] ;
-        if (par == NULL){ // si hay un espacio vacio
-            map->current = -1 ;
-            return NULL ;}
-        
-        if (par->key != NULL && strcmp(par->key, key)){ // si no es NULL y las claves coinciden
-            map->current = posicion ;
-            return par ;}
-        posicion = (posicion + 1) % map->capacity ;
-    } while (posicion != pos_aux) ;
-
-    map->current = -1 ;
-    return NULL;
+    
+    return NULL ;
 }
 
 Pair * firstMap(HashMap * map) {
