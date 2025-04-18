@@ -54,9 +54,27 @@ void insertMap(HashMap * map, char * key, void * value) { //LISTO :D
 }
 
 void enlarge(HashMap * map) {
-    enlarge_called = 1; //no borrar (testing purposes)
+    Pair ** old_buckets = map->buckets ;
+    long oldCapacity = map->capacity ;
+    long capacity = map->capacity * 2 ; //se duplica la capacidad
 
+    map->buckets = (Pair**)calloc(capacity, sizeof(Pair*)) ; //asignamos nueva memoria
+    if (map->buckets == NULL){
+        map->buckets = old_buckets ;
+        return ;}
 
+    map->capacity = capacity ;
+    map->size = 0 ;
+    map->current = -1 ;
+    
+    for (long k = 0 ; k < oldCapacity ; k++){
+        Pair* parcito = old_buckets[k] ;
+        if (parcito != NULL && parcito->key != NULL){
+            insertMap(map, parcito->key, parcito->value) ; //insertamos en el nuevo mapa
+            free(parcito->key) ;
+            free(parcito) ;}
+    }
+    free(old_buckets) ;
 }
 
 HashMap * createMap(long capacity) { //LISTO :D
@@ -102,7 +120,7 @@ Pair * searchMap(HashMap * map,  char * key) { // LISTO :D
     return NULL ;
 }
 
-Pair * firstMap(HashMap * map) {
+Pair * firstMap(HashMap * map) { //listo :D
     if (map == NULL || map->buckets == NULL) return NULL ;
 
     for (long k = 0 ; k < map->capacity ; k++){
@@ -114,7 +132,7 @@ Pair * firstMap(HashMap * map) {
     return NULL ;
 }
 
-Pair * nextMap(HashMap * map) {
+Pair * nextMap(HashMap * map) { //listo :D
     if (map == NULL || map->buckets == NULL || map->current == -1) return NULL ;
 
     for (long k = map->current + 1 ; k < map->capacity ; k++){
