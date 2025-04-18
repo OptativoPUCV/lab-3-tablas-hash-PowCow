@@ -38,8 +38,7 @@ int is_equal(void* key1, void* key2){
     return 0;
 }
 
-
-void insertMap(HashMap * map, char * key, void * value) {
+void insertMap(HashMap * map, char * key, void * value) { //LISTO :D
     if (searchMap(map, key) != NULL) return ;
 
     long posicion = hash(key, map->capacity) ;
@@ -60,7 +59,6 @@ void enlarge(HashMap * map) {
 
 }
 
-
 HashMap * createMap(long capacity) { //LISTO :D
     HashMap * map = (HashMap *)malloc(sizeof(HashMap)) ;
     if (map == NULL) return NULL ;
@@ -79,8 +77,21 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
+    long posicion = hash(key, map->capacity) ; //buscamos la posicion de key
+    long pos_aux = posicion ;
+    do{
+        Pair* par = map->buckets[posicion] ;
+        if (par == NULL){ // si hay un espacio vacio
+            map->current = -1 ;
+            return NULL ;}
+        
+        if (par->key != NULL && strcmp(par->key, key)){ // si no es NULL y las claves coinciden
+            map->current = posicion ;
+            return par ;}
+        posicion = (posicion + 1) % map->capacity ;
+    } while (posicion != pos_aux) ;
 
-
+    map->current = -1 ;
     return NULL;
 }
 
