@@ -76,7 +76,7 @@ void eraseMap(HashMap * map,  char * key) {
     Pair* par = searchMap(map, key) ;
 
     if (par == NULL) return ;//no se encontro la clave
-    par->key == NULL ;
+    par->key = NULL ;
     map->size-- ;
     map->current = -1 ;
 
