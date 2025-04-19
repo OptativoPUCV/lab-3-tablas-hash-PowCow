@@ -41,7 +41,7 @@ int is_equal(void* key1, void* key2){
 void insertMap(HashMap * map, char * key, void * value) { //LISTO :D
     if (searchMap(map, key) != NULL) return ;
 
-    long posicion = hash(key, map->capacity) ;
+    long posicion = hash(key, map->capacity) ; //busca la posicion de un key 
 
     while (map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL){ //sondeo lineal :)
         posicion = (posicion + 1) % map->capacity ;
@@ -53,7 +53,7 @@ void insertMap(HashMap * map, char * key, void * value) { //LISTO :D
     map->current = posicion ;
 }
 
-void enlarge(HashMap * map) {
+void enlarge(HashMap * map) { //listo c:
     Pair ** old_buckets = map->buckets ;
     long oldCapacity = map->capacity ;
     long capacity = map->capacity * 2 ; //se duplica la capacidad
@@ -63,7 +63,7 @@ void enlarge(HashMap * map) {
         map->buckets = old_buckets ;
         return ;}
 
-    map->capacity = capacity ;
+    map->capacity = capacity ; //se reinician las variables (la capacidad es la nueva)
     map->size = 0 ;
     map->current = -1 ;
     
@@ -78,11 +78,11 @@ void enlarge(HashMap * map) {
 }
 
 HashMap * createMap(long capacity) { //LISTO :D
-    HashMap * map = (HashMap *)malloc(sizeof(HashMap)) ;
+    HashMap * map = (HashMap *)malloc(sizeof(HashMap)) ; //asigna memoria para el mapa
     if (map == NULL) return NULL ;
 
-    map->buckets = (Pair **)calloc(capacity, sizeof(Pair *)) ;//dejar todo en nulo
-    
+    map->buckets = (Pair **)calloc(capacity, sizeof(Pair *)) ;//asigna memoria
+    //inicializa todas las variables
     map->size = 0 ;
     map->capacity = capacity ;
     map->current = -1 ;
@@ -100,7 +100,7 @@ void eraseMap(HashMap * map,  char * key) { //LISTO :d
 }
 
 Pair * searchMap(HashMap * map,  char * key) { // LISTO :D
-    long posicion = hash(key, map->capacity) ;
+    long posicion = hash(key, map->capacity) ; //buscamos la posicion de un key 
     long pos_aux = posicion ;
 
     do{
@@ -114,7 +114,7 @@ Pair * searchMap(HashMap * map,  char * key) { // LISTO :D
             return par ;}
 
         posicion = (posicion + 1) % map->capacity ; //mueve a la sig. posicion
-    } while (posicion != pos_aux) ;
+    } while (posicion != pos_aux) ; 
 
     map->current = -1 ;
     return NULL ;
@@ -123,9 +123,9 @@ Pair * searchMap(HashMap * map,  char * key) { // LISTO :D
 Pair * firstMap(HashMap * map) { //listo :D
     if (map == NULL || map->buckets == NULL) return NULL ;
 
-    for (long k = 0 ; k < map->capacity ; k++){
+    for (long k = 0 ; k < map->capacity ; k++){// se busca el primer par valido al inicio
         if (map->buckets[k] != NULL && map->buckets[k]->key != NULL){
-            map->current = k ;
+            map->current = k ; //se actualiza el current
             return map->buckets[k] ;}
     }
     map->current = -1 ;
@@ -135,9 +135,9 @@ Pair * firstMap(HashMap * map) { //listo :D
 Pair * nextMap(HashMap * map) { //listo :D
     if (map == NULL || map->buckets == NULL || map->current == -1) return NULL ;
 
-    for (long k = map->current + 1 ; k < map->capacity ; k++){
+    for (long k = map->current + 1 ; k < map->capacity ; k++){ // se busca el par valido desde current + 1
         if (map->buckets[k] != NULL && map->buckets[k]->key != NULL){
-            map->current = k ;
+            map->current = k ; //actualizamos current si se encuentra
             return map->buckets[k] ;}
     }
     map->current = -1 ;
